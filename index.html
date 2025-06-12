@@ -11,19 +11,24 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh; /* ใช้ min-height ดีกว่า height เผื่อเนื้อหาสูงกว่าจอ */
             background-color: #f4f4f4;
+            font-family: sans-serif; /* เพิ่ม font ที่อ่านง่าย */
         }
         iframe {
-            width: 100%;
-            height: 90%;
+            width: 95%;
+            height: 90vh; /* กำหนดความสูงเป็น % ของ viewport height */
+            max-width: 1200px; /* ไม่ให้กราฟกว้างเกินไปบนจอใหญ่ */
             border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
     </style>
 </head>
 <body>
     <iframe 
-        src="https://thingspeak.com/channels/2988087/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&width=800&height=400" 
+        title="Real-time data chart from ThingSpeak"
+        src="https://thingspeak.com/channels/2988087/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true" 
         allowfullscreen>
     </iframe>
 </body>
