@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ThingSpeak Chart</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        iframe {
+            width: 90vw; /* 90% ของความกว้างหน้าจอ */
+            height: 80vh; /* 80% ของความสูงหน้าจอ */
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <iframe 
+        src="https://thingspeak.com/channels/2988087/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true" 
+        allowfullscreen>
+    </iframe>
+</body>
+</html>
