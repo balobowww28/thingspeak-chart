@@ -11,55 +11,55 @@
         * {
             margin: 0;
             padding: 0;
-            box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+            box-sizing: border-box; 
         }
 
         /* General Body Styling */
         body {
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* Align content to the top initially */
+            justify-content: flex-start;
             align-items: center;
             min-height: 100vh;
-            font-family: 'Roboto', sans-serif; /* Default body font */
-            color: #34495e; /* Darker, sophisticated text color */
-            background: linear-gradient(135deg, #e0f2f7 0%, #b2ebf2 100%); /* Soft, refreshing blue gradient */
-            padding: 30px 20px; /* Add some padding around the edges */
+            font-family: 'Roboto', sans-serif;
+            color: #34495e; 
+            background: linear-gradient(135deg, #e0f2f7 0%, #b2ebf2 100%);
+            padding: 30px 20px; 
         }
 
         /* Main Container for overall layout */
         .dashboard-container {
             width: 100%;
-            max-width: 1300px; /* Slightly wider main container */
+            max-width: 1300px; 
             display: flex;
             flex-direction: column;
-            gap: 30px; /* Space between header and chart */
+            gap: 30px; 
             align-items: center;
         }
 
         /* Header Styling */
         .header-card {
             background-color: #ffffff;
-            border-radius: 15px; /* More rounded corners */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
-            padding: 30px 40px; /* Increased padding */
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); 
+            padding: 30px 40px; 
             text-align: center;
             width: 100%;
-            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
         }
 
         .header-card:hover {
-            transform: translateY(-5px); /* Lift effect on hover */
+            transform: translateY(-5px); 
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         }
 
         .header-card h1 {
-            font-family: 'Poppins', sans-serif; /* Heading font */
-            font-size: 3em; /* Larger, bolder title */
-            color: #007bff; /* Vibrant blue for title */
+            font-family: 'Poppins', sans-serif; 
+            font-size: 3em; 
+            color: #007bff; 
             margin-bottom: 10px;
             font-weight: 700;
-            letter-spacing: -0.02em; /* Slightly tighter letter spacing */
+            letter-spacing: -0.02em; 
         }
 
         .header-card p {
@@ -68,18 +68,37 @@
             line-height: 1.6;
         }
 
-        /* Chart Section Styling */
-        .chart-section {
+        /* Charts & Numeric Display Grid */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Default to single column */
+            gap: 30px; 
             width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr 1fr; /* Two columns on larger screens */
+            }
+        }
+
+        /* Adjust for three columns if you have more data/widgets */
+        @media (min-width: 1200px) { /* Example for 3 columns on very large screens */
+            .charts-grid {
+                grid-template-columns: 1fr 1fr 1fr; 
+            }
+        }
+
+        .chart-section { /* Shared style for both charts and numeric display */
             background-color: #ffffff;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            padding: 25px; /* Padding inside the chart container */
+            padding: 25px; 
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px; /* Space between title and iframe */
-            min-height: 600px; /* Minimum height for the entire chart section */
+            gap: 20px; 
+            min-height: 350px; /* Adjusted min-height for sections, to accommodate numeric display better */
         }
 
         .chart-section h2 {
@@ -87,18 +106,27 @@
             font-size: 1.8em;
             color: #34495e;
             font-weight: 600;
-            border-bottom: 2px solid #e0e0e0; /* Subtle underline */
+            border-bottom: 2px solid #e0e0e0; 
             padding-bottom: 10px;
-            margin-bottom: 10px; /* Space below the underline */
+            margin-bottom: 10px; 
+            text-align: center; /* Ensure header is centered within its card */
         }
 
         iframe {
             width: 100%;
-            height: 600px; /* Fixed height for consistency, adjust as needed */
+            height: 400px; /* Height for charts */
             border: none;
-            border-radius: 10px; /* Slightly more rounded iframe */
-            background-color: #f8f8f8; /* Light background for iframe itself */
+            border-radius: 10px;
+            background-color: #f8f8f8;
         }
+
+        /* Specific style for numeric display iframe */
+        .numeric-display-iframe {
+            height: 150px; /* Shorter height for numeric display */
+            min-height: 100px;
+            /* No background-color here as ThingSpeak widget handles its own bg */
+        }
+
 
         /* Footer Styling */
         .footer {
@@ -106,81 +134,42 @@
             max-width: 1300px;
             text-align: center;
             padding: 20px 0;
-            margin-top: 30px; /* Space above footer */
-            color: #7f8c8d; /* Muted gray for footer text */
+            margin-top: 30px; 
+            color: #7f8c8d; 
             font-size: 0.9em;
         }
 
         /* Responsive Adjustments */
         @media (max-width: 1024px) {
-            .header-card h1 {
-                font-size: 2.5em;
-            }
-            .header-card p {
-                font-size: 1.1em;
-            }
-            .chart-section h2 {
-                font-size: 1.6em;
-            }
-            iframe {
-                height: 500px; /* Adjust height for medium screens */
-            }
+            .header-card h1 { font-size: 2.5em; }
+            .header-card p { font-size: 1.1em; }
+            .chart-section h2 { font-size: 1.6em; }
+            iframe { height: 350px; } /* Adjust height for medium screens */
+            .numeric-display-iframe { height: 120px; }
         }
 
         @media (max-width: 768px) {
-            body {
-                padding: 20px 15px;
-            }
-            .dashboard-container {
-                gap: 20px;
-            }
-            .header-card {
-                padding: 25px 30px;
-            }
-            .header-card h1 {
-                font-size: 2em;
-            }
-            .header-card p {
-                font-size: 1em;
-            }
-            .chart-section {
-                padding: 20px;
-                min-height: 450px;
-            }
-            .chart-section h2 {
-                font-size: 1.4em;
-            }
-            iframe {
-                height: 400px; /* Adjust height for tablets */
-            }
+            body { padding: 20px 15px; }
+            .dashboard-container { gap: 20px; }
+            .header-card { padding: 25px 30px; }
+            .header-card h1 { font-size: 2em; }
+            .header-card p { font-size: 1em; }
+            .chart-section { padding: 20px; min-height: unset; /* Remove min-height for better stacking */ }
+            .chart-section h2 { font-size: 1.4em; }
+            iframe { height: 300px; } /* Adjust height for tablets */
+            .numeric-display-iframe { height: 100px; }
         }
 
         @media (max-width: 480px) {
-            body {
-                padding: 15px 10px;
-            }
-            .dashboard-container {
-                gap: 15px;
-            }
-            .header-card {
-                padding: 20px 25px;
-            }
-            .header-card h1 {
-                font-size: 1.6em;
-            }
-            .header-card p {
-                font-size: 0.9em;
-            }
-            .chart-section {
-                padding: 15px;
-                min-height: 350px;
-            }
-            .chart-section h2 {
-                font-size: 1.2em;
-            }
-            iframe {
-                height: 300px; /* Adjust height for mobile phones */
-            }
+            body { padding: 15px 10px; }
+            .dashboard-container { gap: 15px; }
+            .header-card { padding: 20px 25px; }
+            .header-card h1 { font-size: 1.6em; }
+            .header-card p { font-size: 0.9em; }
+            .chart-section { padding: 15px; }
+            .chart-section h2 { font-size: 1.2em; }
+            iframe { height: 250px; } /* Adjust height for mobile phones */
+            .numeric-display-iframe { height: 80px; }
         }
     </style>
 </head>
@@ -191,18 +180,31 @@
             <p>Real-time insights into environmental temperature readings. Track, analyze, and visualize your data effortlessly.</p>
         </header>
 
-        <section class="chart-section">
-            <h2>Current Temperature Trend</h2>
-            <iframe 
-                title="Temperature Data Logger Chart"
-                src="https://thingspeak.com/channels/2988087/charts/3?bgcolor=%23ffffff&color=%23007bff&dynamic=true&results=60&type=line" 
-                allowfullscreen>
-            </iframe>
-        </section>
-    </div>
+        <div class="charts-grid">
+            <section class="chart-section">
+                <h2>Current Temperature Trend</h2>
+                <iframe 
+                    title="Temperature Data Logger Chart"
+                    src="https://thingspeak.com/channels/2988087/charts/3?bgcolor=%23ffffff&color=%23007bff&dynamic=true&results=60&type=line" 
+                    allowfullscreen>
+                </iframe>
+            </section>
 
-    <footer class="footer">
-        &copy; 2025 Temperature Data Logger. All rights reserved. Powered by ThingSpeak.
-    </footer>
+            <section class="chart-section">
+                <h2>Latest Temperature</h2>
+                <iframe 
+                    title="Latest Temperature Value"
+                    src="YOUR_NUMERIC_DISPLAY_IFRAME_URL_HERE" {/* <--- **สำคัญ: ต้องเปลี่ยน URL นี้** */}
+                    class="numeric-display-iframe" {/* เพิ่ม class เพื่อปรับแต่งขนาดเฉพาะ */}
+                    allowfullscreen>
+                </iframe>
+            </section>
+
+            {/* หากมีกราฟความชื้น หรือข้อมูลอื่น ๆ ก็สามารถเพิ่ม section เข้าไปใน charts-grid ได้อีก */}
+            </div>
+
+        <footer class="footer">
+            &copy; 2025 Temperature Data Logger. All rights reserved. Powered by ThingSpeak.
+        </footer>
 </body>
 </html>
