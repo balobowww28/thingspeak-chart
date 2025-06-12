@@ -7,23 +7,27 @@
     <style>
         body {
             margin: 0;
+            padding: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
+            justify-content: center; /* ทำให้เนื้อหาตรงกลางแนวนอน */
+            align-items: center;    /* ทำให้เนื้อหาตรงกลางแนวตั้ง */
+            min-height: 100vh;      /* ความสูงขั้นต่ำ 100% ของ viewport height */
+            background-color: #f4f4f4; /* สีพื้นหลัง */
+            font-family: sans-serif; /* Font ที่อ่านง่าย */
         }
         iframe {
-            width: 95%; /* 95% of the viewport width */
-            height: 85%; /* 85% of the viewport height */
-            border: none;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
-            border-radius: 8px; /* Rounded corners */
+            width: 95%;             /* ความกว้าง 95% ของพื้นที่ที่มี */
+            height: 90vh;           /* ความสูง 90% ของ viewport height */
+            max-width: 1200px;      /* ความกว้างสูงสุดไม่เกิน 1200px */
+            border: none;           /* ไม่มีเส้นขอบ */
+            border-radius: 8px;     /* ขอบโค้งมน */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* เงา */
         }
     </style>
 </head>
 <body>
     <iframe 
+        title="Real-time data chart from ThingSpeak"
         src="https://thingspeak.com/channels/2988087/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true" 
         allowfullscreen>
     </iframe>
