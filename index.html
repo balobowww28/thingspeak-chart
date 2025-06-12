@@ -3,33 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ThingSpeak Chart</title>
+    <title>ThingSpeak Data Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
+        /* General Body Styling */
         body {
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: center; /* ทำให้เนื้อหาตรงกลางแนวนอน */
-            align-items: center;    /* ทำให้เนื้อหาตรงกลางแนวตั้ง */
-            min-height: 100vh;      /* ความสูงขั้นต่ำ 100% ของ viewport height */
-            background-color: #f4f4f4; /* สีพื้นหลัง */
-            font-family: sans-serif; /* Font ที่อ่านง่าย */
+            flex-direction: column; /* Arrange items vertically */
+            justify-content: center; /* Center horizontally (for flex-direction: row) / Center vertically (for flex-direction: column when height is limited) */
+            align-items: center;    /* Center horizontally (for flex-direction: column) */
+            min-height: 100vh;      /* Full viewport height */
+            font-family: 'Roboto', sans-serif; /* Modern, clean font */
+            color: #333;             /* Dark gray text color */
+            
+            /* Background Gradient */
+            background: linear-gradient(135deg, #f0f4f8, #d9e2ec); /* Soft blue-gray gradient */
+            /* Or a subtle pattern */
+            /* background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><g fill-opacity="0.2"><path fill="%23d9e2ec" d="M0 40L40 0H20L0 20V40ZM40 40V20L20 40H40Z"/></g></svg>');
+            background-color: #f0f4f8; */
         }
+
+        /* Header Styling */
+        .header {
+            width: 95%;
+            max-width: 1200px;
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 30px; /* Space between header and chart */
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px); /* Frosty glass effect */
+            -webkit-backdrop-filter: blur(5px); /* For Safari */
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em; /* Larger title */
+            color: #2c3e50; /* Darker blue-gray for title */
+            font-weight: 700; /* Bold font weight */
+        }
+
+        .header p {
+            margin-top: 10px;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        /* Chart Container / Iframe Styling */
+        .chart-container {
+            width: 95%;
+            max-width: 1200px;
+            background-color: #ffffff; /* White background for the container */
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Stronger, softer shadow */
+            overflow: hidden; /* Ensures border-radius applies to iframe */
+            padding: 20px; /* Padding inside the container */
+            display: flex; /* Use flex to center iframe inside its container */
+            justify-content: center;
+            align-items: center;
+            min-height: 400px; /* Minimum height for the container */
+        }
+
         iframe {
-            width: 95%;             /* ความกว้าง 95% ของพื้นที่ที่มี */
-            height: 90vh;           /* ความสูง 90% ของ viewport height */
-            max-width: 1200px;      /* ความกว้างสูงสุดไม่เกิน 1200px */
-            border: none;           /* ไม่มีเส้นขอบ */
-            border-radius: 8px;     /* ขอบโค้งมน */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* เงา */
+            width: 100%; /* Iframe takes full width of its container */
+            height: 80vh; /* Relative to viewport height */
+            min-height: 450px; /* Minimum height for the iframe */
+            border: none;
+            border-radius: 8px; /* Slightly smaller border-radius than container */
+            /* No direct box-shadow here as the container handles it */
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .header p {
+                font-size: 0.9em;
+            }
+            .chart-container {
+                padding: 15px;
+                min-height: 300px;
+            }
+            iframe {
+                height: 65vh;
+                min-height: 350px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5em;
+            }
+            .header p {
+                font-size: 0.8em;
+            }
+            .chart-container {
+                padding: 10px;
+            }
+            iframe {
+                height: 60vh;
+                min-height: 300px;
+            }
         }
     </style>
 </head>
 <body>
-    <iframe 
-        title="Real-time data chart from ThingSpeak"
-        src="https://thingspeak.com/channels/2988087/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true" 
-        allowfullscreen>
-    </iframe>
+    <div class="header">
+        <h1>Real-time Environmental Monitoring</h1>
+        <p>แสดงผลข้อมูลจากเซ็นเซอร์แบบสดๆ</p>
+    </div>
+
+    <div class="chart-container">
+        <iframe 
+            title="Real-time data chart from ThingSpeak"
+            src="https://thingspeak.com/channels/2988087/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line" 
+            allowfullscreen>
+        </iframe>
+    </div>
 </body>
 </html>
