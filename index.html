@@ -3,130 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ThingSpeak Data Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Temperature Data Logger Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
     <style>
-        /* General Body Styling */
-        body {
+        /* CSS Reset (Basic) */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+        }
+
+        /* General Body Styling */
+        body {
             display: flex;
-            flex-direction: column; /* Arrange items vertically */
-            justify-content: center; /* Center horizontally (for flex-direction: row) / Center vertically (for flex-direction: column when height is limited) */
-            align-items: center;    /* Center horizontally (for flex-direction: column) */
-            min-height: 100vh;      /* Full viewport height */
-            font-family: 'Roboto', sans-serif; /* Modern, clean font */
-            color: #333;             /* Dark gray text color */
-            
-            /* Background Gradient */
-            background: linear-gradient(135deg, #f0f4f8, #d9e2ec); /* Soft blue-gray gradient */
-            /* Or a subtle pattern */
-            /* background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><g fill-opacity="0.2"><path fill="%23d9e2ec" d="M0 40L40 0H20L0 20V40ZM40 40V20L20 40H40Z"/></g></svg>');
-            background-color: #f0f4f8; */
+            flex-direction: column;
+            justify-content: flex-start; /* Align content to the top initially */
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Roboto', sans-serif; /* Default body font */
+            color: #34495e; /* Darker, sophisticated text color */
+            background: linear-gradient(135deg, #e0f2f7 0%, #b2ebf2 100%); /* Soft, refreshing blue gradient */
+            padding: 30px 20px; /* Add some padding around the edges */
+        }
+
+        /* Main Container for overall layout */
+        .dashboard-container {
+            width: 100%;
+            max-width: 1300px; /* Slightly wider main container */
+            display: flex;
+            flex-direction: column;
+            gap: 30px; /* Space between header and chart */
+            align-items: center;
         }
 
         /* Header Styling */
-        .header {
-            width: 95%;
-            max-width: 1200px;
+        .header-card {
+            background-color: #ffffff;
+            border-radius: 15px; /* More rounded corners */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+            padding: 30px 40px; /* Increased padding */
             text-align: center;
-            padding: 20px 0;
-            margin-bottom: 30px; /* Space between header and chart */
-            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(5px); /* Frosty glass effect */
-            -webkit-backdrop-filter: blur(5px); /* For Safari */
+            width: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
         }
 
-        .header h1 {
-            margin: 0;
-            font-size: 2.5em; /* Larger title */
-            color: #2c3e50; /* Darker blue-gray for title */
-            font-weight: 700; /* Bold font weight */
+        .header-card:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         }
 
-        .header p {
-            margin-top: 10px;
-            font-size: 1.1em;
+        .header-card h1 {
+            font-family: 'Poppins', sans-serif; /* Heading font */
+            font-size: 3em; /* Larger, bolder title */
+            color: #007bff; /* Vibrant blue for title */
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -0.02em; /* Slightly tighter letter spacing */
+        }
+
+        .header-card p {
+            font-size: 1.2em;
             color: #555;
+            line-height: 1.6;
         }
 
-        /* Chart Container / Iframe Styling */
-        .chart-container {
-            width: 95%;
-            max-width: 1200px;
-            background-color: #ffffff; /* White background for the container */
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Stronger, softer shadow */
-            overflow: hidden; /* Ensures border-radius applies to iframe */
-            padding: 20px; /* Padding inside the container */
-            display: flex; /* Use flex to center iframe inside its container */
-            justify-content: center;
+        /* Chart Section Styling */
+        .chart-section {
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 25px; /* Padding inside the chart container */
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            min-height: 400px; /* Minimum height for the container */
+            gap: 20px; /* Space between title and iframe */
+            min-height: 600px; /* Minimum height for the entire chart section */
+        }
+
+        .chart-section h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8em;
+            color: #34495e;
+            font-weight: 600;
+            border-bottom: 2px solid #e0e0e0; /* Subtle underline */
+            padding-bottom: 10px;
+            margin-bottom: 10px; /* Space below the underline */
         }
 
         iframe {
-            width: 100%; /* Iframe takes full width of its container */
-            height: 80vh; /* Relative to viewport height */
-            min-height: 450px; /* Minimum height for the iframe */
+            width: 100%;
+            height: 600px; /* Fixed height for consistency, adjust as needed */
             border: none;
-            border-radius: 8px; /* Slightly smaller border-radius than container */
-            /* No direct box-shadow here as the container handles it */
+            border-radius: 10px; /* Slightly more rounded iframe */
+            background-color: #f8f8f8; /* Light background for iframe itself */
+        }
+
+        /* Footer Styling */
+        .footer {
+            width: 100%;
+            max-width: 1300px;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 30px; /* Space above footer */
+            color: #7f8c8d; /* Muted gray for footer text */
+            font-size: 0.9em;
         }
 
         /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            .header {
-                padding: 15px;
-                margin-bottom: 20px;
+        @media (max-width: 1024px) {
+            .header-card h1 {
+                font-size: 2.5em;
             }
-            .header h1 {
-                font-size: 1.8em;
+            .header-card p {
+                font-size: 1.1em;
             }
-            .header p {
-                font-size: 0.9em;
-            }
-            .chart-container {
-                padding: 15px;
-                min-height: 300px;
+            .chart-section h2 {
+                font-size: 1.6em;
             }
             iframe {
-                height: 65vh;
-                min-height: 350px;
+                height: 500px; /* Adjust height for medium screens */
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 15px;
+            }
+            .dashboard-container {
+                gap: 20px;
+            }
+            .header-card {
+                padding: 25px 30px;
+            }
+            .header-card h1 {
+                font-size: 2em;
+            }
+            .header-card p {
+                font-size: 1em;
+            }
+            .chart-section {
+                padding: 20px;
+                min-height: 450px;
+            }
+            .chart-section h2 {
+                font-size: 1.4em;
+            }
+            iframe {
+                height: 400px; /* Adjust height for tablets */
             }
         }
 
         @media (max-width: 480px) {
-            .header h1 {
-                font-size: 1.5em;
+            body {
+                padding: 15px 10px;
             }
-            .header p {
-                font-size: 0.8em;
+            .dashboard-container {
+                gap: 15px;
             }
-            .chart-container {
-                padding: 10px;
+            .header-card {
+                padding: 20px 25px;
+            }
+            .header-card h1 {
+                font-size: 1.6em;
+            }
+            .header-card p {
+                font-size: 0.9em;
+            }
+            .chart-section {
+                padding: 15px;
+                min-height: 350px;
+            }
+            .chart-section h2 {
+                font-size: 1.2em;
             }
             iframe {
-                height: 60vh;
-                min-height: 300px;
+                height: 300px; /* Adjust height for mobile phones */
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Real-time Environmental Monitoring</h1>
-        <p>แสดงผลข้อมูลจากเซ็นเซอร์แบบสดๆ</p>
+    <div class="dashboard-container">
+        <header class="header-card">
+            <h1>Temperature Data Logger</h1>
+            <p>Real-time insights into environmental temperature readings. Track, analyze, and visualize your data effortlessly.</p>
+        </header>
+
+        <section class="chart-section">
+            <h2>Current Temperature Trend</h2>
+            <iframe 
+                title="Temperature Data Logger Chart"
+                src="https://thingspeak.com/channels/2988087/charts/3?bgcolor=%23ffffff&color=%23007bff&dynamic=true&results=60&type=line" 
+                allowfullscreen>
+            </iframe>
+        </section>
     </div>
 
-    <div class="chart-container">
-        <iframe 
-            title="Real-time data chart from ThingSpeak"
-            src="https://thingspeak.com/channels/2988087/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line" 
-            allowfullscreen>
-        </iframe>
-    </div>
+    <footer class="footer">
+        &copy; 2025 Temperature Data Logger. All rights reserved. Powered by ThingSpeak.
+    </footer>
 </body>
 </html>
